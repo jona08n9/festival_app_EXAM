@@ -28,18 +28,9 @@ export default function TemporaryDrawer() {
   };
 
   const list = (anchor) => (
-    <Box
-      className="flex flex-col justify-items-center"
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor)}
-      onKeyDown={toggleDrawer(anchor)}
-    >
+    <Box className="flex flex-col justify-items-center" sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }} role="presentation" onClick={toggleDrawer(anchor)} onKeyDown={toggleDrawer(anchor)}>
       <List>
-        <ListItem
-          className="flex"
-          disablePadding
-        >
+        <ListItem className="flex" disablePadding>
           <ListItemButton>
             <Anchor href={`../program`}>
               <p className="navHover text-3xl font-bold uppercase text-color-white">Program</p>
@@ -47,20 +38,14 @@ export default function TemporaryDrawer() {
           </ListItemButton>
         </ListItem>
 
-        <ListItem
-          className="flex"
-          disablePadding
-        >
+        <ListItem className="flex" disablePadding>
           <ListItemButton>
-            <Anchor href={`https://booking-flow.vercel.app/`}>
+            <Anchor href={`https://jonas-booking-flow.vercel.app/`}>
               <p className="navHover text-3xl font-bold uppercase text-color-white">Tickets</p>
             </Anchor>
           </ListItemButton>
         </ListItem>
-        <ListItem
-          className="flex"
-          disablePadding
-        >
+        <ListItem className="flex" disablePadding>
           <ListItemButton>
             <Anchor href={`../personalprogram`}>
               <p className="navHover text-3xl font-bold uppercase text-color-white">Personal program</p>
@@ -75,16 +60,8 @@ export default function TemporaryDrawer() {
     <div className="flex">
       {["right"].map((anchor) => (
         <Fragment key={anchor}>
-          <Example
-            toggleDrawer={toggleDrawer(anchor)}
-            opened={opened}
-            setOpened={setOpened}
-          />
-          <Drawer
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor)}
-          >
+          <Example toggleDrawer={toggleDrawer(anchor)} opened={opened} setOpened={setOpened} />
+          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor)}>
             {list(anchor)}
           </Drawer>
         </Fragment>
