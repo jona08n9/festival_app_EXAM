@@ -1,8 +1,13 @@
+"use client";
 import { useState, useEffect } from "react";
+import { CircularProgress } from "@mui/material";
 
 export default function Product({ ticket }) {
   const [id, setId] = useState(ticket);
-  const [ticketData, setTicketData] = useState();
+  const [control, setControl] = useState(false);
+  const [ticketData, setTicketData] = useState("NO VALUE");
+
+  let ticketHolderName, ticketType, ticketPhone, ticketArea, ticketSpots, addContactDetails;
 
   useEffect(() => {
     fetch(`https://zwhuiiextumxbglllmlk.supabase.co/rest/v1/jonas_foofest?reservation_id=eq.${id}`, {
@@ -18,15 +23,57 @@ export default function Product({ ticket }) {
       .then((data) => setTicketData(data));
 
     localStorage.removeItem("sb-zwhuiiextumxbglllmlk-auth-token");
-  });
 
+    setControl(true);
+  }, []);
+
+  if (control === true) {
+    console.log("im in?");
+    ticketHolderName = `${ticketData[0].contactInformation[0].firstName} ${ticketData[0].contactInformation[0].lastName}`;
+    ticketType = `${ticketData[0].ticketType}`;
+    ticketPhone = `${ticketData[0].phone}`;
+    ticketArea = `${ticketData[0].area}`;
+    ticketSpots = `${ticketData[0].spotAmount}`;
+    addContactDetails = ticketData[0].contactInformation;
+    console.log(addContactDetails);
+  }
+
+  console.log("ticketData", ticketData);
   return (
     <>
-      <h1>
-        Ticket holder - {ticketData[0].contactinformation[0].firstName} {ticketData[0].contactinformation[0].lastName}
-      </h1>
-      <p className="text-color-white">{id}</p>
-      <button onClick={() => console.log(ticketData)}>See data</button>
+      {control === true ? (
+        <>
+          <div className="ticketContainer">
+            <h4 className="text-color-black text-center">Ticket Holder</h4>
+            <h3 className="text-color-black text-center">{ticketHolderName}</h3>
+            <div className="ticketDetails_container my-2 border-t-2 p-2">
+              <div className="ticketDetails">
+                <p className="ticketDetails_header text-color-black">Ticket Type</p>
+                <p className="ticketDetails_text text-color-black">{ticketType.toUpperCase()}</p>
+              </div>
+              <div className="ticketDetails">
+                <p className="ticketDetails_header text-color-black">Area</p>
+                <p className="ticketDetails_text text-color-black">{ticketArea.toUpperCase()}</p>
+              </div>
+              <div className="ticketDetails">
+                <p className="ticketDetails_header text-color-black">No. of spots</p>
+                <p className="ticketDetails_text text-color-black">{ticketSpots.toUpperCase()}</p>
+              </div>
+            </div>
+            <div className="personalInfo my-2 border-t-2 p-2">
+              <div className="ticketDetails">
+                <p className="ticketDetails_header text-color-black">Phone number</p>
+                <p className="ticketDetails_text text-color-black">+45 {ticketPhone.toUpperCase()} </p>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <h2>Getting your ticket</h2>
+          <CircularProgress sx={{ color: "yellow" }} className="mx-auto" />
+        </>
+      )}
     </>
   );
 }

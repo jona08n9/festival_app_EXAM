@@ -156,6 +156,33 @@ a > *:hover {
   font-family: var(--font-gillSans);
 }
 
+/*** TICKET ***/
+.ticketContainer {
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: yellow;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  max-width: 450px;
+}
+
+.personalInfo,
+.ticketDetails_container {
+  display: grid;
+  row-gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.ticketDetails_header {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.ticketDetails_text {
+  font-weight: 600;
+}
+
 /* ----------- */
 @media screen and (min-width: 1024px) {
   .bandcontainer > Image {
