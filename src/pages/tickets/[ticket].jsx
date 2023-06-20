@@ -1,12 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Product({ ticket }) {
   const [id, setId] = useState(ticket);
+  const [ticketData, setTicketData] = useState();
+
+  useEffect(() => {
+    fetch(`https://zwhuiiextumxbglllmlk.supabase.co/rest/v1/jonas_foofest?reservation_id=eq.${id}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3aHVpaWV4dHVteGJnbGxsbWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY3NDQzMjEsImV4cCI6MjAwMjMyMDMyMX0.6bVHqcHAjW1yayID2eKPB5jiFxbx4Pk5bQ2Dvb-PXLo",
+        // apikey: SUPABASE_KEY,
+        Prefer: "return=representation",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setTicketData(data));
+
+    localStorage.removeItem("sb-zwhuiiextumxbglllmlk-auth-token");
+  });
 
   return (
     <>
       <h1>Text</h1>
       <p className="text-color-white">{id}</p>
+      <button onClick={() => console.log(ticketData)}>See data</button>
     </>
   );
 }

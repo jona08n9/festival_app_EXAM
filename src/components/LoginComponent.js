@@ -16,6 +16,7 @@ export default function LoginComponent() {
   const router = useRouter();
   const inputRefs = useRef([]);
   const MAX_INPUTS = 6;
+  const SUPABASE_KEY = process.env.SUPABASE_KEY;
 
   const supabase = createClient("https://zwhuiiextumxbglllmlk.supabase.co/", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3aHVpaWV4dHVteGJnbGxsbWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY3NDQzMjEsImV4cCI6MjAwMjMyMDMyMX0.6bVHqcHAjW1yayID2eKPB5jiFxbx4Pk5bQ2Dvb-PXLo");
 
@@ -34,14 +35,31 @@ export default function LoginComponent() {
         signIn();
       }
     } else {
-      console.log("SENDING DATA", dataResponse);
-      setRenderState("FETCHING_TOKEN_ID");
-      verifySignIn();
+      if (userToken === "ERROR") {
+        setRenderState("WRONG_TOKEN");
+      } else if (userToken === "TIMEOUT") {
+        setRenderState("TIMEOUT");
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
+      } else {
+        console.log("SENDING DATA", dataResponse);
+        setRenderState("FETCHING_TOKEN_ID");
+        verifySignIn();
+      }
     }
   }, [dataResponse, userToken]);
 
   useEffect(() => {
-    secondsCounter > 0 && setTimeout(() => setSecondsCounter(secondsCounter - 1), 1000);
+    // secondsCounter > 0 && setTimeout(() => setSecondsCounter(secondsCounter - 1), 1000);
+    if (secondsCounter > 0) {
+      const timer = setTimeout(() => {
+        setSecondsCounter(secondsCounter - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else if (secondsCounter === 0) {
+      setUserToken("TIMEOUT");
+    }
   }, [secondsCounter]);
 
   const signIn = async () => {
@@ -51,17 +69,29 @@ export default function LoginComponent() {
   };
 
   const verifySignIn = async () => {
-    try {
-      let { session, error } = await supabase.auth.verifyOtp({
-        phone: `+45${userNumber.toString()}`,
-        token: `${userToken.toString()}`,
-        type: "sms",
-      });
-      alert("OK");
+    let { session, error } = await supabase.auth.verifyOtp({
+      phone: `+45${userNumber.toString()}`,
+      token: `${userToken.toString()}`,
+      type: "sms",
+    });
+
+    if (error) {
+      console.log("error", error);
+      setUserToken("ERROR");
+    } else {
+      console.log(session);
       router.push(`/tickets/${userId}`);
-    } catch (error) {
-      alert(error);
     }
+
+    // console.log(session);
+    // console.log(error);
+    // } catch (error) {
+    //   alert(error);
+    //   setUserToken("");
+    //   setRenderState("WRONG_TOKEN");
+    // }
+    // alert("OK");
+    // router.push(`/tickets/${userId}`);
   };
 
   const checkValidity = (e) => {
@@ -77,11 +107,13 @@ export default function LoginComponent() {
       headers: {
         "content-type": "application/json",
         apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3aHVpaWV4dHVteGJnbGxsbWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY3NDQzMjEsImV4cCI6MjAwMjMyMDMyMX0.6bVHqcHAjW1yayID2eKPB5jiFxbx4Pk5bQ2Dvb-PXLo",
+        // apikey: SUPABASE_KEY,
         Prefer: "return=representation",
       },
     })
       .then((res) => res.json())
-      .then((data) => setDataResponse(data));
+      .then((data) => console.log(data));
+    // setDataResponse(data));
     // .then((data) => console.log(data));
   }
   const handleInputChange = (event) => {
@@ -238,6 +270,90 @@ export default function LoginComponent() {
             <article className="flex flex-col mx-auto gap-3 justify-center">
               <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">Running verification, please wait</h4>
               <CircularProgress sx={{ color: "yellow" }} className="mx-auto" />
+            </article>
+          </>
+        ) : (
+          ""
+        )}
+        {renderState === "WRONG_TOKEN" ? (
+          <>
+            <article>
+              <h4 className="text-color-red max-w-lg mx-auto text-center my-7">The code is wring. Please try again.</h4>
+              {secondsCounter === 0 ? <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">Your timer has run out, the page will reload in 5 seconds. Please try again.</h4> : <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">You have {secondsCounter} seconds to input your OTP code</h4>}
+              <form className="flex flex-row justify-center max-w-lg mx-auto gap-4" onSubmit={checkValidity}>
+                <TextField
+                  inputProps={{ inputMode: "number", maxLength: 6 }}
+                  className="mx-auto flex justify-center align-middle text-center"
+                  sx={{
+                    "& label.Mui-focused": {
+                      color: "yellow",
+                    },
+                    "& .MuiInput-underline:after": {
+                      borderBottomColor: "yellow",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "#B2BAC2",
+                      },
+                      "& .MuiOutlinedInput-input": {
+                        borderColor: "none",
+                      },
+                      "& .MuiOutlinedInput-input:focus": {
+                        border: "2px solid transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#B2BAC2",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "yellow",
+                      },
+                    },
+                  }}
+                  onChange={(event) => handleInputChange(event)}
+                />
+              </form>
+            </article>
+          </>
+        ) : (
+          ""
+        )}
+        {renderState === "TIMEOUT" ? (
+          <>
+            <article>
+              <h4 className="text-color-red max-w-lg mx-auto text-center my-7">Times out - This page wil reset in 5 seconds</h4>
+              <form className="flex flex-row justify-center max-w-lg mx-auto gap-4" onSubmit={checkValidity}>
+                <TextField
+                  disabled
+                  inputProps={{ inputMode: "number", maxLength: 6 }}
+                  className="invalidMui cursor-not-allowed mx-auto flex justify-center align-middle text-center"
+                  sx={{
+                    "& label.Mui-focused": {
+                      color: "yellow",
+                    },
+                    "& .MuiInput-underline:after": {
+                      borderBottomColor: "yellow",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "#red",
+                      },
+                      "& .MuiOutlinedInput-input": {
+                        borderColor: "none",
+                      },
+                      "& .MuiOutlinedInput-input:focus": {
+                        border: "2px solid transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#red",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "yellow",
+                      },
+                    },
+                  }}
+                  onChange={(event) => handleInputChange(event)}
+                />
+              </form>
             </article>
           </>
         ) : (

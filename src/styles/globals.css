@@ -106,8 +106,17 @@ a > *:hover {
   border: solid #f9f9f9 2px;
   border-radius: 5px;
 }
+
+.invalidMui .MuiOutlinedInput-input {
+  border: solid rgb(184, 1, 1) 2px;
+}
+
 .MuiOutlinedInput-input:hover {
   border: solid #f9f9f9 2px;
+}
+.invalidMui .MuiOutlinedInput-input:hover {
+  border: solid rgb(184, 1, 1) 2px;
+  cursor: not-allowed;
 }
 
 .Mui-focused.MuiOutlinedInput-input {
