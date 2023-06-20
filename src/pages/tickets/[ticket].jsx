@@ -1,5 +1,14 @@
+import { useState } from "react";
+
 export default function Product({ ticket }) {
-  return <h1>Text</h1>;
+  const [id, setId] = useState(ticket);
+
+  return (
+    <>
+      <h1>Text</h1>
+      <p className="text-color-white">{id}</p>
+    </>
+  );
 }
 
 export async function getServerSideProps(context) {
@@ -14,10 +23,9 @@ export async function getServerSideProps(context) {
   //   const scheduleData = await res2.json();
 
   //   // Pass the post data as props to the page
-  //   return {
-  //     props: {
-  //       bandData,
-  //       scheduleData,
-  //     },
-  //   };
+  return {
+    props: {
+      ticket,
+    },
+  };
 }
