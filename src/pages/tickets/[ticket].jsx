@@ -22,7 +22,9 @@ export default function Product({ ticket }) {
 
   return (
     <>
-      <h1>Text</h1>
+      <h1>
+        Ticket holder - {ticketData[0].contactinformation[0].firstName} {ticketData[0].contactinformation[0].lastName}
+      </h1>
       <p className="text-color-white">{id}</p>
       <button onClick={() => console.log(ticketData)}>See data</button>
     </>
