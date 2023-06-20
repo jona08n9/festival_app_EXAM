@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { TextField, Button } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { createClient } from "@supabase/supabase-js";
+import { useRouter } from "next/router";
 
 export default function LoginComponent() {
   const [userNumber, setUserNumber] = useState();
@@ -11,6 +12,8 @@ export default function LoginComponent() {
   const [dataResponse, setDataResponse] = useState(undefined);
   const [inputArray, setInputArray] = useState([undefined, undefined, undefined, undefined, undefined, undefined]);
   const [userToken, setUserToken] = useState("");
+  const [secondsCounter, setSecondsCounter] = useState(null);
+  const router = useRouter();
   const inputRefs = useRef([]);
   const MAX_INPUTS = 6;
 
@@ -26,6 +29,8 @@ export default function LoginComponent() {
       } else if (dataResponse.length > 0) {
         console.log("Correct Number", dataResponse);
         setRenderState("CORRECT_PHONENUMBER");
+        setUserId(dataResponse[0].reservation_id);
+        setSecondsCounter(60);
         signIn();
       }
     } else {
@@ -34,6 +39,10 @@ export default function LoginComponent() {
       verifySignIn();
     }
   }, [dataResponse, userToken]);
+
+  useEffect(() => {
+    secondsCounter > 0 && setTimeout(() => setSecondsCounter(secondsCounter - 1), 1000);
+  }, [secondsCounter]);
 
   const signIn = async () => {
     let { data, error } = await supabase.auth.signInWithOtp({
@@ -49,6 +58,7 @@ export default function LoginComponent() {
         type: "sms",
       });
       alert("OK");
+      router.push(`/tickets/${userId}`);
     } catch (error) {
       alert(error);
     }
@@ -185,9 +195,8 @@ export default function LoginComponent() {
           <>
             <article>
               <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">{`We've send you a six digit code to the phone number +45 ${userNumber.substring(0, 4)} - ${userNumber.substring(4, 8)}. Please fill them in below to log in.`}</h4>
+              {secondsCounter === 0 ? <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">Your timer has run out, the page will reload in 5 seconds. Please try again.</h4> : <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">You have {secondsCounter} seconds to input your OTP code</h4>}
               <form className="flex flex-row justify-center max-w-lg mx-auto gap-4" onSubmit={checkValidity}>
-                {/* {renderInputFields()}
-                 */}
                 <TextField
                   inputProps={{ inputMode: "number", maxLength: 6 }}
                   className="mx-auto flex justify-center align-middle text-center"
