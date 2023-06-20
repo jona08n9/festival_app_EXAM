@@ -52,6 +52,13 @@ export default function TemporaryDrawer() {
             </Anchor>
           </ListItemButton>
         </ListItem>
+        <ListItem className="flex" disablePadding>
+          <ListItemButton>
+            <Anchor href={`../login`}>
+              <p className="navHover text-3xl font-bold uppercase text-color-white">Login</p>
+            </Anchor>
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
