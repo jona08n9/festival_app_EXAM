@@ -208,7 +208,7 @@ export default function Product({ data }) {
               <div className="ticketContainer2">
                 <h3 className="text-color-black text-left mb-2">Additional guests</h3>
               </div>
-              {addContactDetails.map((guest) => (
+              {contactArray.map((guest) => (
                 <div key={uuidv4()} className=" p-2 ticketGuest">
                   <div className="holes">
                     <span className="hole"></span>
