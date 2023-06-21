@@ -9,6 +9,7 @@ export default function Product({ data }) {
   const [ticketData, setTicketData] = useState(data.response);
 
   let ticketHolderFirstName, ticketHolderLastName, ticketType, ticketPhone, ticketEmail, ticketAdress, ticketZip, ticketID, ticketArea, ticketSpots, foofestTents2, foofestTents3, privateTents2, privateTents3, greenCamp, setUp;
+  let contactArray = [];
   // localStorage.removeItem("sb-zwhuiiextumxbglllmlk-auth-token");
 
   useEffect(() => {
@@ -97,9 +98,9 @@ export default function Product({ data }) {
     greenCamp = ticket[0].greenCamp;
 
     if (Object.keys(ticket[0].contactInformation).length > 1) {
-      let contactArray = [];
       for (let i = 1; i <= Object.keys(ticket[0].contactInformation).length - 1; i++) {
         console.log("what", ticket[0].contactInformation[i]);
+        contactArray.push(ticket[0].contactInformation[i]);
       }
 
       console.log("length", Object.keys(ticket[0].contactInformation).length);
@@ -107,7 +108,7 @@ export default function Product({ data }) {
     }
     // const addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
     // console.log("ACD", addContactDetails);
-    console.log("p2", privateTents3);
+    console.log("contactArray", contactArray);
   }
 
   console.log("ticket.contactInformation", ticket[0].contactInformation);
