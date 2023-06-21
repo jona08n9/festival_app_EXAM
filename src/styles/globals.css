@@ -306,6 +306,27 @@ a > *:hover {
   }
 }
 
+@media screen and (width < 500px) {
+  .ticketContainer0,
+  .ticketContainer1,
+  .ticketContainer2,
+  .ticketGuest {
+    max-width: 350px;
+  }
+
+  .ticketDetails_header {
+    font-size: 0.7rem;
+  }
+
+  .ticketDetails_text {
+    font-size: 1rem;
+  }
+
+  .holes {
+    width: 340px;
+  }
+}
+
 @media screen and (width < 473px) {
   .css-hlj6pa-MuiDialogActions-root {
     flex-direction: column;
