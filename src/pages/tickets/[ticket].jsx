@@ -95,7 +95,7 @@ export default function Product({ data }) {
     setUp = ticket[0].campSetUp;
     // GREEN CAMP --> YES OR NO?
     greenCamp = ticket[0].greenCamp;
-    addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
+    // addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
     console.log("ACD", addContactDetails);
     console.log("p2", privateTents3);
   }
