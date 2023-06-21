@@ -97,14 +97,14 @@ export default function Product({ data }) {
     greenCamp = ticket[0].greenCamp;
 
     if (Object.keys(ticket[0].contactInformation).length > 1) {
-      console.log(Object.keys(ticket[0].contactInformation).length);
+      console.log("length", Object.keys(ticket[0].contactInformation).length);
     }
     // addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
     console.log("ACD", addContactDetails);
     console.log("p2", privateTents3);
   }
 
-  console.log("ticket", ticket[0].foofestTents);
+  console.log("ticket.contactInformation", ticket[0].contactInformation);
   console.log("data", data);
   console.log("data.response", data.response);
 
