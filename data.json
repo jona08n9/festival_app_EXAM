@@ -1,0 +1,37 @@
+[
+  {
+    "area": "Svartheim",
+    "buyTimeout": 1687282110351,
+    "campSetUp": true,
+    "contactInformation": [
+      {
+        "email": "jonas@joans",
+        "firstName": "Jonas",
+        "lastName": "M",
+        "phoneNumber": "31 38 21 03",
+        "streetAdress": "hhyl2",
+        "zipCode": "1212"
+      },
+      {
+        "email": "jonas@joans",
+        "firstName": "Jonas",
+        "lastName": "M",
+        "phoneNumber": "31 38 21 03",
+        "streetAdress": "hhyl2",
+        "zipCode": "1212"
+      }
+    ],
+    "created_at": "2023-06-20T17:24:45.347321+00:00",
+    "foofestTents": [{ "threePersonTent": 0 }, { "twoPersonTent": 2 }],
+    "greenCamp": false,
+    "id": 5,
+    "oneTentForEach": true,
+    "phone": 31382103,
+    "privateTents": [{ "threePersonTentPrivat": 0 }, { "twoPersonTentPrivat": 0 }],
+    "reservation_id": "9k8q1m36lj4k0x4d",
+    "spotAmount": 2,
+    "ticketAmount": 2,
+    "ticketType": "vip",
+    "totalPrice": 3595
+  }
+]

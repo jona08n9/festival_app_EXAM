@@ -157,14 +157,28 @@ a > *:hover {
 }
 
 /*** TICKET ***/
-.ticketContainer {
+.ticketContainer1,
+.ticketContainer2,
+.ticketGuest {
   margin-inline: auto;
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: yellow;
-  padding: 1rem 2rem;
+  padding: 2rem 2rem 1rem;
   border-radius: 10px;
   max-width: 450px;
+}
+
+.ticketContainer1 {
+  border-radius: 10px 10px 0 0;
+}
+.ticketContainer2 {
+  border-radius: 0 0 10px 10px;
+}
+
+.ticketGuest {
+  padding: 2rem;
 }
 
 .personalInfo,
@@ -180,7 +194,34 @@ a > *:hover {
 }
 
 .ticketDetails_text {
+  font-size: 1.2rem;
   font-weight: 600;
+}
+
+.extraDetails {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  row-gap: 1rem;
+}
+
+.holes {
+  position: absolute;
+  top: -2.5px;
+  left: 12px;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 440px;
+}
+
+.hole {
+  width: 5px;
+  height: 5px;
+  background-color: black;
+  border-radius: 50%;
+  display: block;
 }
 
 /* ----------- */
