@@ -230,7 +230,7 @@ export default function LoginComponent() {
               {secondsCounter === 0 ? <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">Your timer has run out, the page will reload in 5 seconds. Please try again.</h4> : <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">You have {secondsCounter} seconds to input your OTP code</h4>}
               <form className="flex flex-row justify-center max-w-lg mx-auto gap-4" onSubmit={checkValidity}>
                 <TextField
-                  inputProps={{ inputMode: "number", maxLength: 6 }}
+                  inputProps={{ inputMode: "tel", maxLength: 6 }}
                   className="mx-auto flex justify-center align-middle text-center"
                   sx={{
                     "& label.Mui-focused": {
@@ -282,7 +282,7 @@ export default function LoginComponent() {
               {secondsCounter === 0 ? <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">Your timer has run out, the page will reload in 5 seconds. Please try again.</h4> : <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">You have {secondsCounter} seconds to input your OTP code</h4>}
               <form className="flex flex-row justify-center max-w-lg mx-auto gap-4" onSubmit={checkValidity}>
                 <TextField
-                  inputProps={{ inputMode: "number", maxLength: 6 }}
+                  inputProps={{ inputMode: "tel", maxLength: 6 }}
                   className="mx-auto flex justify-center align-middle text-center"
                   sx={{
                     "& label.Mui-focused": {
