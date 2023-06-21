@@ -97,9 +97,9 @@ export default function Product({ data }) {
     greenCamp = ticket[0].greenCamp;
 
     if (Object.keys(ticket[0].contactInformation).length > 1) {
-      const contactArray = [];
+      let contactArray = [];
       for (let i = 1; i < Object.keys(ticket[0].contactInformation).length - 1; i++) {
-        console.log("what", ticket[0].contactInformation.i);
+        console.log("what", ticket[0].contactInformation[i]);
       }
 
       console.log("length", Object.keys(ticket[0].contactInformation).length);
