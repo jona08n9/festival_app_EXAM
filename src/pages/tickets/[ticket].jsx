@@ -8,7 +8,7 @@ export default function Product({ data }) {
   const [control, setControl] = useState(false);
   const [ticketData, setTicketData] = useState(data.response);
 
-  let ticketHolderFirstName, ticketHolderLastName, ticketType, ticketPhone, ticketEmail, ticketAdress, ticketZip, ticketArea, ticketSpots, addContactDetails, foofestTents2, foofestTents3, privateTents2, privateTents3, greenCamp, setUp;
+  let ticketHolderFirstName, ticketHolderLastName, ticketType, ticketPhone, ticketEmail, ticketAdress, ticketZip, ticketID, ticketArea, ticketSpots, addContactDetails, foofestTents2, foofestTents3, privateTents2, privateTents3, greenCamp, setUp;
   // localStorage.removeItem("sb-zwhuiiextumxbglllmlk-auth-token");
 
   useEffect(() => {
@@ -77,6 +77,8 @@ export default function Product({ data }) {
     ticketAdress = `${ticket[0].contactInformation[0].streetAdress}`;
     //Zipcode of ticket buyer (first input)
     ticketZip = `${ticket[0].contactInformation[0].zipCode}`;
+    //ID of ticket
+    ticketID = `${ticket[0].reservation_id}`;
     // Regular or VIP Ticket
     ticketType = `${ticket[0].ticketType}`;
     // Festival Area
@@ -84,21 +86,21 @@ export default function Product({ data }) {
     // Amount of Spots bought
     ticketSpots = `${ticket[0].spotAmount}`;
     // FOOFEST TENTS --> Bought by us
-    // foofestTents2 = `${Number(ticket[0].foofestTents[1].twoPersonTent)}`;
-    // foofestTents3 = `${Number(ticket[0].foofestTents[0].threePersonTent)}`;
+    foofestTents2 = `${Number(ticket[0].foofestTents.twoPersonTent)}`;
+    foofestTents3 = `${Number(ticket[0].foofestTents.threePersonTent)}`;
     // // PRIVATE TENTS --> Brought themself
-    // privateTents2 = `${Number(ticket[0].privateTents[1].twoPersonTentPrivat)}`;
-    // privateTents3 = `${Number(ticket[0].privateTents[0].threePersonTentPrivat)}`;
+    privateTents2 = `${Number(ticket[0].privateTents.twoPersonTentPrivat)}`;
+    privateTents3 = `${Number(ticket[0].privateTents.threePersonTentPrivat)}`;
     // CAMP SETUP --> We setting up the camp
     setUp = ticket[0].campSetUp;
     // GREEN CAMP --> YES OR NO?
     greenCamp = ticket[0].greenCamp;
-    // addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
+    addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
     console.log("ACD", addContactDetails);
     console.log("p2", privateTents3);
   }
 
-  console.log("ticket", ticket);
+  console.log("ticket", ticket[0].foofestTents);
   console.log("data", data);
   console.log("data.response", data.response);
 
@@ -107,7 +109,7 @@ export default function Product({ data }) {
       {ticket.length > 0 ? (
         <>
           <div className="ticketContainer1 relative">
-            {/* <small className="absolute top-3 left-8">Booking Number: {ticket}</small> */}
+            <small className="absolute top-3 left-8">Booking Number: {ticketID}</small>
             <h4 className="text-color-black text-center mb-2">Ticket Holder</h4>
             <h3 className="text-color-black text-center mb-4">
               {ticketHolderFirstName} {ticketHolderLastName}
@@ -125,7 +127,7 @@ export default function Product({ data }) {
                 <p className="ticketDetails_header text-color-black">No. of spots</p>
                 <p className="ticketDetails_text text-color-black">{ticketSpots.toUpperCase()}</p>
               </div>
-              {/* {foofestTents2 > 0 || foofestTents3 > 0 ? (
+              {foofestTents2 > 0 || foofestTents3 > 0 ? (
                 <div className="ticketDetails">
                   <p className="ticketDetails_header text-color-black">Tents Brought from home</p>
                   {foofestTents2 > 0 ? <p className="ticketDetails_text text-color-black">Two person tents: {foofestTents2}</p> : ""}
@@ -146,7 +148,7 @@ export default function Product({ data }) {
                 </>
               ) : (
                 ""
-              )} */}
+              )}
             </div>
             <div className="ticketDetails p-2">
               <p className="ticketDetails_header text-color-black">Extras</p>
