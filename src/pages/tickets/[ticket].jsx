@@ -120,7 +120,7 @@ export default function Product({ data }) {
       {ticket.length > 0 ? (
         <>
           <div className={contactArray.length < 1 ? "ticketContainer0 relative" : "ticketContainer1 relative"}>
-            <small className="absolute top-3 left-8 text-color-darkGrey">Booking Number: {ticketID}</small>
+            <small className="absolute top-3 right-8 text-color-darkGrey">Booking Number: {ticketID}</small>
             <h4 className="text-color-black text-center mb-2">Ticket Holder</h4>
             <h3 className="text-color-black text-center mb-4">
               {ticketHolderFirstName} {ticketHolderLastName}
