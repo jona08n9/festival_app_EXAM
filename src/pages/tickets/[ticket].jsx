@@ -119,7 +119,7 @@ export default function Product({ data }) {
     <>
       {ticket.length > 0 ? (
         <>
-          <div className="ticketContainer1 relative">
+          <div className={contactArray.length < 1 ? "ticketContainer0 relative" : "ticketContainer1 relative"}>
             <small className="absolute top-3 left-8">Booking Number: {ticketID}</small>
             <h4 className="text-color-black text-center mb-2">Ticket Holder</h4>
             <h3 className="text-color-black text-center mb-4">
@@ -203,7 +203,7 @@ export default function Product({ data }) {
               </div>
             </div>
           </div>
-          {/* {addContactDetails.length > 1 ? (
+          {contactArray.length > 0 ? (
             <>
               <div className="ticketContainer2">
                 <h3 className="text-color-black text-left mb-2">Additional guests</h3>
@@ -274,7 +274,7 @@ export default function Product({ data }) {
             </>
           ) : (
             ""
-          )} */}
+          )}
         </>
       ) : (
         <>
