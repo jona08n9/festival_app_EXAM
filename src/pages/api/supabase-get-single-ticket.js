@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   console.log(req.query);
-  const response = await fetch(`https://zwhuiiextumxbglllmlk.supabase.co/rest/v1/jonas_foofest?reservation_id=eq.${req.query.ticket}`, {
+  const response = await fetch(`https://zwhuiiextumxbglllmlk.supabase.co/rest/v1/jonas_foofest?reservation_id=eq.${req.query.id}`, {
     method: "GET",
     headers: {
       "content-type": "application/json",
