@@ -11,12 +11,6 @@ export default function Product({ data }) {
   let ticketHolderFirstName, ticketHolderLastName, ticketType, ticketPhone, ticketEmail, ticketAdress, ticketZip, ticketArea, ticketSpots, addContactDetails, foofestTents2, foofestTents3, privateTents2, privateTents3, greenCamp, setUp;
   // localStorage.removeItem("sb-zwhuiiextumxbglllmlk-auth-token");
 
-  useEffect(() => {
-    if (data.reposne === true) {
-      setControl(true);
-    }
-  }, ticketData);
-
   // useEffect(() => {
   //   setTicketData([
   //     {
@@ -66,46 +60,47 @@ export default function Product({ data }) {
   //   setControl(true);
   // }, []);
 
-  if (control === true) {
-    console.log("im in?");
-    // Name of first input
-    ticketHolderFirstName = `${ticket[0].contactInformation[0].firstName}`;
-    ticketHolderLastName = `${ticket[0].contactInformation[0].lastName}`;
-    //Number of ticket buyer (first input)
-    ticketPhone = `${ticket[0].phone}`;
-    //email of ticket buyer (first input)
-    ticketEmail = `${ticket[0].contactInformation[0].email}`;
-    //Adress of ticket buyer (first input)
-    ticketAdress = `${ticket[0].contactInformation[0].streetAdress}`;
-    //Zipcode of ticket buyer (first input)
-    ticketZip = `${ticket[0].contactInformation[0].zipCode}`;
-    // Regular or VIP Ticket
-    ticketType = `${ticket[0].ticketType}`;
-    // Festival Area
-    ticketArea = `${ticket[0].area}`;
-    // Amount of Spots bought
-    ticketSpots = `${ticket[0].spotAmount}`;
-    // FOOFEST TENTS --> Bought by us
-    foofestTents2 = `${Number(ticket[0].foofestTents[1].twoPersonTent)}`;
-    foofestTents3 = `${Number(ticket[0].foofestTents[0].threePersonTent)}`;
-    // PRIVATE TENTS --> Brought themself
-    privateTents2 = `${Number(ticket[0].privateTents[1].twoPersonTentPrivat)}`;
-    privateTents3 = `${Number(ticket[0].privateTents[0].threePersonTentPrivat)}`;
-    // CAMP SETUP --> We setting up the camp
-    setUp = ticket[0].campSetUp;
-    // GREEN CAMP --> YES OR NO?
-    greenCamp = ticket[0].greenCamp;
-    addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
-    console.log("ACD", addContactDetails);
-    console.log("p2", privateTents3);
-  }
+  // if (control === true) {
+  //   console.log("im in?");
+  // Name of first input
+  ticketHolderFirstName = `${ticket[0].contactInformation[0].firstName}`;
+  ticketHolderLastName = `${ticket[0].contactInformation[0].lastName}`;
+  //Number of ticket buyer (first input)
+  ticketPhone = `${ticket[0].phone}`;
+  //email of ticket buyer (first input)
+  ticketEmail = `${ticket[0].contactInformation[0].email}`;
+  //Adress of ticket buyer (first input)
+  ticketAdress = `${ticket[0].contactInformation[0].streetAdress}`;
+  //Zipcode of ticket buyer (first input)
+  ticketZip = `${ticket[0].contactInformation[0].zipCode}`;
+  // Regular or VIP Ticket
+  ticketType = `${ticket[0].ticketType}`;
+  // Festival Area
+  ticketArea = `${ticket[0].area}`;
+  // Amount of Spots bought
+  ticketSpots = `${ticket[0].spotAmount}`;
+  // FOOFEST TENTS --> Bought by us
+  foofestTents2 = `${Number(ticket[0].foofestTents[1].twoPersonTent)}`;
+  foofestTents3 = `${Number(ticket[0].foofestTents[0].threePersonTent)}`;
+  // PRIVATE TENTS --> Brought themself
+  privateTents2 = `${Number(ticket[0].privateTents[1].twoPersonTentPrivat)}`;
+  privateTents3 = `${Number(ticket[0].privateTents[0].threePersonTentPrivat)}`;
+  // CAMP SETUP --> We setting up the camp
+  setUp = ticket[0].campSetUp;
+  // GREEN CAMP --> YES OR NO?
+  greenCamp = ticket[0].greenCamp;
+  addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
+  console.log("ACD", addContactDetails);
+  console.log("p2", privateTents3);
+  // }
 
   console.log("ticket", ticket);
   console.log("data", data);
   console.log("data.response", data.response);
+
   return (
     <>
-      {control === true ? (
+      {ticket.length > 0 ? (
         <>
           <div className="ticketContainer1 relative">
             {/* <small className="absolute top-3 left-8">Booking Number: {ticket}</small> */}
