@@ -248,7 +248,7 @@ export default function Product({ ticket }) {
                       {guest.firstName} {guest.lastName}
                     </h3>
                   </h4>
-                  <small className="absolute top-3 right-8">Booking Number: {ticket}</small>
+                  <small className="absolute top-3 right-8">Booking NO. {ticket}</small>
                   <div className="personalInfo">
                     <div className="ticketDetails">
                       <p className="ticketDetails_header text-color-black">Phone number</p>
