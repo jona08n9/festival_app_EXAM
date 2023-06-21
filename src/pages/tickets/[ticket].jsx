@@ -10,64 +10,64 @@ export default function Product({ ticket }) {
   let ticketHolderFirstName, ticketHolderLastName, ticketType, ticketPhone, ticketEmail, ticketAdress, ticketZip, ticketArea, ticketSpots, addContactDetails, foofestTents2, foofestTents3, privateTents2, privateTents3, greenCamp, setUp;
 
   useEffect(() => {
-    // fetch(`https://zwhuiiextumxbglllmlk.supabase.co/rest/v1/jonas_foofest?reservation_id=eq.${id}`, {
-    //   method: "GET",
-    //   headers: {
-    //     "content-type": "application/json",
-    //     apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3aHVpaWV4dHVteGJnbGxsbWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY3NDQzMjEsImV4cCI6MjAwMjMyMDMyMX0.6bVHqcHAjW1yayID2eKPB5jiFxbx4Pk5bQ2Dvb-PXLo",
-    //     // apikey: SUPABASE_KEY,
-    //     Prefer: "return=representation",
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => setTicketData(data));
-
-    // localStorage.removeItem("sb-zwhuiiextumxbglllmlk-auth-token");
-    setTicketData([
-      {
-        area: "Svartheim",
-        buyTimeout: 1687282110351,
-        campSetUp: true,
-        contactInformation: [
-          {
-            email: "jonas@joans",
-            firstName: "Jonas",
-            lastName: "M",
-            phoneNumber: "31 38 21 03",
-            streetAdress: "hhyl2",
-            zipCode: "1212",
-          },
-          {
-            email: "jonas@joans",
-            firstName: "john",
-            lastName: "mogens",
-            phoneNumber: "31 38 21 03",
-            streetAdress: "hhyl2",
-            zipCode: "1212",
-          },
-          {
-            email: "jonas@joans",
-            firstName: "Erik",
-            lastName: "Eriksen",
-            phoneNumber: "31 38 21 03",
-            streetAdress: "hhyl2",
-            zipCode: "1212",
-          },
-        ],
-        created_at: "2023-06-20T17:24:45.347321+00:00",
-        foofestTents: [{ threePersonTent: 0 }, { twoPersonTent: 2 }],
-        greenCamp: false,
-        id: 5,
-        oneTentForEach: true,
-        phone: 31382103,
-        privateTents: [{ threePersonTentPrivat: 0 }, { twoPersonTentPrivat: 0 }],
-        reservation_id: "9k8q1m36lj4k0x4d",
-        spotAmount: 2,
-        ticketAmount: 2,
-        ticketType: "vip",
-        totalPrice: 3595,
+    fetch(`https://zwhuiiextumxbglllmlk.supabase.co/rest/v1/jonas_foofest?reservation_id=eq.${id}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3aHVpaWV4dHVteGJnbGxsbWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY3NDQzMjEsImV4cCI6MjAwMjMyMDMyMX0.6bVHqcHAjW1yayID2eKPB5jiFxbx4Pk5bQ2Dvb-PXLo",
+        // apikey: SUPABASE_KEY,
+        Prefer: "return=representation",
       },
-    ]);
+    })
+      .then((res) => res.json())
+      .then((data) => setTicketData(data));
+
+    localStorage.removeItem("sb-zwhuiiextumxbglllmlk-auth-token");
+    // setTicketData([
+    //   {
+    //     area: "Svartheim",
+    //     buyTimeout: 1687282110351,
+    //     campSetUp: true,
+    //     contactInformation: [
+    //       {
+    //         email: "jonas@joans",
+    //         firstName: "Jonas",
+    //         lastName: "M",
+    //         phoneNumber: "31 38 21 03",
+    //         streetAdress: "hhyl2",
+    //         zipCode: "1212",
+    //       },
+    //       {
+    //         email: "jonas@joans",
+    //         firstName: "john",
+    //         lastName: "mogens",
+    //         phoneNumber: "31 38 21 03",
+    //         streetAdress: "hhyl2",
+    //         zipCode: "1212",
+    //       },
+    //       {
+    //         email: "jonas@joans",
+    //         firstName: "Erik",
+    //         lastName: "Eriksen",
+    //         phoneNumber: "31 38 21 03",
+    //         streetAdress: "hhyl2",
+    //         zipCode: "1212",
+    //       },
+    //     ],
+    //     created_at: "2023-06-20T17:24:45.347321+00:00",
+    //     foofestTents: [{ threePersonTent: 0 }, { twoPersonTent: 2 }],
+    //     greenCamp: false,
+    //     id: 5,
+    //     oneTentForEach: true,
+    //     phone: 31382103,
+    //     privateTents: [{ threePersonTentPrivat: 0 }, { twoPersonTentPrivat: 0 }],
+    //     reservation_id: "9k8q1m36lj4k0x4d",
+    //     spotAmount: 2,
+    //     ticketAmount: 2,
+    //     ticketType: "vip",
+    //     totalPrice: 3595,
+    //   },
+    // ]);
     setControl(true);
   }, []);
 
