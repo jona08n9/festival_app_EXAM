@@ -99,12 +99,11 @@ export default function Product({ data }) {
     if (Object.keys(ticket[0].contactInformation).length > 1) {
       const contactArray = [];
       for (let i = 1; i < Object.keys(ticket[0].contactInformation).length - 1; i++) {
-        contactArray.push(ticket[0].contactInformation.i);
+        console.log("what", ticket[0].contactInformation.i);
       }
 
       console.log("length", Object.keys(ticket[0].contactInformation).length);
       console.log("typeof", typeof ticket[0].contactInformation);
-      console.log("typeof", contactArray);
     }
     // const addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
     // console.log("ACD", addContactDetails);
