@@ -95,6 +95,10 @@ export default function Product({ data }) {
     setUp = ticket[0].campSetUp;
     // GREEN CAMP --> YES OR NO?
     greenCamp = ticket[0].greenCamp;
+
+    if (Object.keys(ticket[0].contactinformation).length > 1) {
+      console.log(Object.keys(ticket[0].contactinformation).length);
+    }
     // addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
     console.log("ACD", addContactDetails);
     console.log("p2", privateTents3);
@@ -153,24 +157,20 @@ export default function Product({ data }) {
             <div className="ticketDetails p-2">
               <p className="ticketDetails_header text-color-black">Extras</p>
               <div className="extraDetails">
-                {
-                  (greenCamp = true ? (
-                    <>
-                      <p className="ticketDetails_text text-color-black">Green Camp</p> <small className="place-self-end self-center text-right">Enjoy a CO2 compensated Festival!</small>
-                    </>
-                  ) : (
-                    ""
-                  ))
-                }
-                {
-                  (setUp = true ? (
-                    <>
-                      <p className="ticketDetails_text text-color-black">Camp set up</p> <small className="place-self-end self-center text-right">We already set up your camp. Hear where at the information desk.</small>
-                    </>
-                  ) : (
-                    ""
-                  ))
-                }
+                {greenCamp === true ? (
+                  <>
+                    <p className="ticketDetails_text text-color-black">Green Camp</p> <small className="place-self-end self-center text-right">Enjoy a CO2 compensated Festival!</small>
+                  </>
+                ) : (
+                  ""
+                )}
+                {setUp === true ? (
+                  <>
+                    <p className="ticketDetails_text text-color-black">Camp set up</p> <small className="place-self-end self-center text-right">We already set up your camp. Hear where at the information desk.</small>
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
 
