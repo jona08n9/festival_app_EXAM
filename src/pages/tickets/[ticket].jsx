@@ -98,7 +98,7 @@ export default function Product({ data }) {
 
     if (Object.keys(ticket[0].contactInformation).length > 1) {
       let contactArray = [];
-      for (let i = 1; i < Object.keys(ticket[0].contactInformation).length - 1; i++) {
+      for (let i = 1; i <= Object.keys(ticket[0].contactInformation).length - 1; i++) {
         console.log("what", ticket[0].contactInformation[i]);
       }
 
