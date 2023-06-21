@@ -96,8 +96,8 @@ export default function Product({ data }) {
     // GREEN CAMP --> YES OR NO?
     greenCamp = ticket[0].greenCamp;
 
-    if (Object.keys(ticket[0].contactinformation).length > 1) {
-      console.log(Object.keys(ticket[0].contactinformation).length);
+    if (Object.keys(ticket[0].contactInformation).length > 1) {
+      console.log(Object.keys(ticket[0].contactInformation).length);
     }
     // addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
     console.log("ACD", addContactDetails);
