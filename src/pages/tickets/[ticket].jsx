@@ -98,8 +98,9 @@ export default function Product({ data }) {
 
     if (Object.keys(ticket[0].contactInformation).length > 1) {
       console.log("length", Object.keys(ticket[0].contactInformation).length);
+      console.log("typeof", typeof ticket[0].contactInformation);
     }
-    const addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
+    // const addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
     console.log("ACD", addContactDetails);
     console.log("p2", privateTents3);
   }
