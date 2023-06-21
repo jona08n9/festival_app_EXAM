@@ -166,7 +166,7 @@ a > *:hover {
   display: flex;
   flex-direction: column;
   background-color: yellow;
-  padding: 2rem 2rem 1rem;
+  padding: 3rem 2rem 1rem;
   border-radius: 10px;
   max-width: 450px;
 }
@@ -180,6 +180,7 @@ a > *:hover {
 
 .ticketGuest {
   padding: 2rem;
+  position: relative;
 }
 
 .personalInfo,
