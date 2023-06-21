@@ -11,6 +11,12 @@ export default function Product({ data }) {
   let ticketHolderFirstName, ticketHolderLastName, ticketType, ticketPhone, ticketEmail, ticketAdress, ticketZip, ticketArea, ticketSpots, addContactDetails, foofestTents2, foofestTents3, privateTents2, privateTents3, greenCamp, setUp;
   // localStorage.removeItem("sb-zwhuiiextumxbglllmlk-auth-token");
 
+  useEffect(() => {
+    if (data.reposne === true) {
+      setControl(true);
+    }
+  }, ticketData);
+
   // useEffect(() => {
   //   setTicketData([
   //     {
@@ -60,7 +66,7 @@ export default function Product({ data }) {
   //   setControl(true);
   // }, []);
 
-  if (ticketData !== undefined) {
+  if (control === true) {
     console.log("im in?");
     // Name of first input
     ticketHolderFirstName = `${ticket[0].contactInformation[0].firstName}`;
@@ -99,7 +105,7 @@ export default function Product({ data }) {
   console.log("data.response", data.response);
   return (
     <>
-      {ticketData !== undefined ? (
+      {control === true ? (
         <>
           <div className="ticketContainer1 relative">
             {/* <small className="absolute top-3 left-8">Booking Number: {ticket}</small> */}
