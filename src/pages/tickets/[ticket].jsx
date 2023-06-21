@@ -4,7 +4,7 @@ import { CircularProgress } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Product({ data }) {
-  // const [id, setId] = useState(ticket);
+  const ticket = data.response;
   const [control, setControl] = useState(false);
   const [ticketData, setTicketData] = useState(data.response);
 
@@ -63,38 +63,38 @@ export default function Product({ data }) {
   if (ticketData !== undefined) {
     console.log("im in?");
     // Name of first input
-    ticketHolderFirstName = `${ticketData[0].contactInformation[0].firstName}`;
-    ticketHolderLastName = `${ticketData[0].contactInformation[0].lastName}`;
+    ticketHolderFirstName = `${ticket[0].contactInformation[0].firstName}`;
+    ticketHolderLastName = `${ticket[0].contactInformation[0].lastName}`;
     //Number of ticket buyer (first input)
-    ticketPhone = `${ticketData[0].phone}`;
+    ticketPhone = `${ticket[0].phone}`;
     //email of ticket buyer (first input)
-    ticketEmail = `${ticketData[0].contactInformation[0].email}`;
+    ticketEmail = `${ticket[0].contactInformation[0].email}`;
     //Adress of ticket buyer (first input)
-    ticketAdress = `${ticketData[0].contactInformation[0].streetAdress}`;
+    ticketAdress = `${ticket[0].contactInformation[0].streetAdress}`;
     //Zipcode of ticket buyer (first input)
-    ticketZip = `${ticketData[0].contactInformation[0].zipCode}`;
+    ticketZip = `${ticket[0].contactInformation[0].zipCode}`;
     // Regular or VIP Ticket
-    ticketType = `${ticketData[0].ticketType}`;
+    ticketType = `${ticket[0].ticketType}`;
     // Festival Area
-    ticketArea = `${ticketData[0].area}`;
+    ticketArea = `${ticket[0].area}`;
     // Amount of Spots bought
-    ticketSpots = `${ticketData[0].spotAmount}`;
+    ticketSpots = `${ticket[0].spotAmount}`;
     // FOOFEST TENTS --> Bought by us
-    foofestTents2 = `${Number(ticketData[0].foofestTents[1].twoPersonTent)}`;
-    foofestTents3 = `${Number(ticketData[0].foofestTents[0].threePersonTent)}`;
+    foofestTents2 = `${Number(ticket[0].foofestTents[1].twoPersonTent)}`;
+    foofestTents3 = `${Number(ticket[0].foofestTents[0].threePersonTent)}`;
     // PRIVATE TENTS --> Brought themself
-    privateTents2 = `${Number(ticketData[0].privateTents[1].twoPersonTentPrivat)}`;
-    privateTents3 = `${Number(ticketData[0].privateTents[0].threePersonTentPrivat)}`;
+    privateTents2 = `${Number(ticket[0].privateTents[1].twoPersonTentPrivat)}`;
+    privateTents3 = `${Number(ticket[0].privateTents[0].threePersonTentPrivat)}`;
     // CAMP SETUP --> We setting up the camp
-    setUp = ticketData[0].campSetUp;
+    setUp = ticket[0].campSetUp;
     // GREEN CAMP --> YES OR NO?
-    greenCamp = ticketData[0].greenCamp;
-    addContactDetails = ticketData[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
+    greenCamp = ticket[0].greenCamp;
+    addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
     console.log("ACD", addContactDetails);
     console.log("p2", privateTents3);
   }
 
-  console.log("ticketData", ticketData);
+  console.log("ticket", ticket);
   console.log("data", data);
   console.log("data.response", data.response);
   return (
@@ -278,6 +278,13 @@ export async function getServerSideProps(context) {
   console.log(ticket);
 
   const res = await fetch("https://jonas-festival-app.vercel.app/api/supabase-get-single-ticket?id=" + ticket);
+
+  if (res.status != 200) {
+    return {
+      notFound: true,
+    };
+  }
+
   const data = await res.json();
 
   return {
