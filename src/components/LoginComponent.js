@@ -112,7 +112,7 @@ export default function LoginComponent() {
       },
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => setDataResponse(data));
     // setDataResponse(data));
     // .then((data) => console.log(data));
   }
