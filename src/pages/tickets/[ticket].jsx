@@ -93,7 +93,7 @@ export default function Product({ data }) {
     setUp = ticket[0].campSetUp;
     // GREEN CAMP --> YES OR NO?
     greenCamp = ticket[0].greenCamp;
-    addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
+    // addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
     console.log("ACD", addContactDetails);
     console.log("p2", privateTents3);
   }
@@ -194,7 +194,7 @@ export default function Product({ data }) {
               </div>
             </div>
           </div>
-          {addContactDetails.length > 1 ? (
+          {/* {addContactDetails.length > 1 ? (
             <>
               <div className="ticketContainer2">
                 <h3 className="text-color-black text-left mb-2">Additional guests</h3>
@@ -242,7 +242,6 @@ export default function Product({ data }) {
                   <h3 className="text-color-black">
                     {guest.firstName} {guest.lastName}
                   </h3>
-                  {/* <small className="absolute top-3 right-8">Booking NO. {ticket}</small> */}
                   <div className="personalInfo">
                     <div className="ticketDetails">
                       <p className="ticketDetails_header text-color-black">Phone number</p>
@@ -266,7 +265,7 @@ export default function Product({ data }) {
             </>
           ) : (
             ""
-          )}
+          )} */}
         </>
       ) : (
         <>
