@@ -2,25 +2,28 @@
 import { useState, useEffect } from "react";
 import { CircularProgress } from "@mui/material";
 
-export default function Product({ ticket }) {
-  const [id, setId] = useState(ticket);
+export default function Product({ data }) {
+  // const [id, setId] = useState(ticket);
   const [control, setControl] = useState(false);
-  const [ticketData, setTicketData] = useState("NO VALUE");
+  const [ticketData, setTicketData] = useState(data.response[0]);
 
   let ticketHolderFirstName, ticketHolderLastName, ticketType, ticketPhone, ticketEmail, ticketAdress, ticketZip, ticketArea, ticketSpots, addContactDetails, foofestTents2, foofestTents3, privateTents2, privateTents3, greenCamp, setUp;
 
   useEffect(() => {
-    fetch(`https://zwhuiiextumxbglllmlk.supabase.co/rest/v1/jonas_foofest?reservation_id=eq.${id}`, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3aHVpaWV4dHVteGJnbGxsbWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY3NDQzMjEsImV4cCI6MjAwMjMyMDMyMX0.6bVHqcHAjW1yayID2eKPB5jiFxbx4Pk5bQ2Dvb-PXLo",
-        // apikey: SUPABASE_KEY,
-        Prefer: "return=representation",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setTicketData(data));
+    // fetch(`https://zwhuiiextumxbglllmlk.supabase.co/rest/v1/jonas_foofest?reservation_id=eq.${id}`, {
+    //   method: "GET",
+    //   headers: {
+    //     "content-type": "application/json",
+    //     apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3aHVpaWV4dHVteGJnbGxsbWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY3NDQzMjEsImV4cCI6MjAwMjMyMDMyMX0.6bVHqcHAjW1yayID2eKPB5jiFxbx4Pk5bQ2Dvb-PXLo",
+    //     // apikey: SUPABASE_KEY,
+    //     Prefer: "return=representation",
+    //   },
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => setTicketData(data));
+    if (ticketData.length() > 0) {
+      setControl(true);
+    }
 
     localStorage.removeItem("sb-zwhuiiextumxbglllmlk-auth-token");
     // setTicketData([
@@ -68,8 +71,8 @@ export default function Product({ ticket }) {
     //     totalPrice: 3595,
     //   },
     // ]);
-    setControl(true);
-  }, []);
+    // setControl(true);
+  }, [ticketData]);
 
   if (control === true) {
     console.log("im in?");
@@ -108,10 +111,10 @@ export default function Product({ ticket }) {
   console.log("ticketData", ticketData);
   return (
     <>
-      {control === true && ticketData !== "NO VALUE" ? (
+      {control === true ? (
         <>
           <div className="ticketContainer1 relative">
-            <small className="absolute top-3 left-8">Booking Number: {ticket}</small>
+            {/* <small className="absolute top-3 left-8">Booking Number: {ticket}</small> */}
             <h4 className="text-color-black text-center mb-2">Ticket Holder</h4>
             <h3 className="text-color-black text-center mb-4">
               {ticketHolderFirstName} {ticketHolderLastName}
@@ -248,7 +251,7 @@ export default function Product({ ticket }) {
                       {guest.firstName} {guest.lastName}
                     </h3>
                   </h4>
-                  <small className="absolute top-3 right-8">Booking NO. {ticket}</small>
+                  {/* <small className="absolute top-3 right-8">Booking NO. {ticket}</small> */}
                   <div className="personalInfo">
                     <div className="ticketDetails">
                       <p className="ticketDetails_header text-color-black">Phone number</p>
@@ -284,21 +287,36 @@ export default function Product({ ticket }) {
   );
 }
 
+// export async function getServerSideProps(context) {
+//   const ticket = context.params.ticket;
+//   console.log(ticket);
+
+//   //   Fetch post data from API using the ID parameter
+
+//   //   const [res1] = await Promise.all([fetch(`${apiUrl}/bands/${band}`), fetch(`${apiUrl}/schedule`)]);
+
+//   //   const bandData = await res1.json();
+//   //   const scheduleData = await res2.json();
+
+//   //   // Pass the post data as props to the page
+//   return {
+//     props: {
+//       ticket,
+//     },
+//   };
+// }
+
 export async function getServerSideProps(context) {
   const ticket = context.params.ticket;
   console.log(ticket);
 
-  //   Fetch post data from API using the ID parameter
+  const res = await fetch(`https://jonas-festival-app.vercel.app/api/supabase-get-single-ticket?reservation_id=${ticket}`);
+  const data = await res.json();
 
-  //   const [res1] = await Promise.all([fetch(`${apiUrl}/bands/${band}`), fetch(`${apiUrl}/schedule`)]);
-
-  //   const bandData = await res1.json();
-  //   const scheduleData = await res2.json();
-
-  //   // Pass the post data as props to the page
+  // Pass the post data as props to the page
   return {
     props: {
-      ticket,
+      data,
     },
   };
 }
