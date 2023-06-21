@@ -84,11 +84,11 @@ export default function Product({ data }) {
     // Amount of Spots bought
     ticketSpots = `${ticket[0].spotAmount}`;
     // FOOFEST TENTS --> Bought by us
-    foofestTents2 = `${Number(ticket[0].foofestTents[1].twoPersonTent)}`;
-    foofestTents3 = `${Number(ticket[0].foofestTents[0].threePersonTent)}`;
-    // PRIVATE TENTS --> Brought themself
-    privateTents2 = `${Number(ticket[0].privateTents[1].twoPersonTentPrivat)}`;
-    privateTents3 = `${Number(ticket[0].privateTents[0].threePersonTentPrivat)}`;
+    // foofestTents2 = `${Number(ticket[0].foofestTents[1].twoPersonTent)}`;
+    // foofestTents3 = `${Number(ticket[0].foofestTents[0].threePersonTent)}`;
+    // // PRIVATE TENTS --> Brought themself
+    // privateTents2 = `${Number(ticket[0].privateTents[1].twoPersonTentPrivat)}`;
+    // privateTents3 = `${Number(ticket[0].privateTents[0].threePersonTentPrivat)}`;
     // CAMP SETUP --> We setting up the camp
     setUp = ticket[0].campSetUp;
     // GREEN CAMP --> YES OR NO?
@@ -125,7 +125,7 @@ export default function Product({ data }) {
                 <p className="ticketDetails_header text-color-black">No. of spots</p>
                 <p className="ticketDetails_text text-color-black">{ticketSpots.toUpperCase()}</p>
               </div>
-              {foofestTents2 > 0 || foofestTents3 > 0 ? (
+              {/* {foofestTents2 > 0 || foofestTents3 > 0 ? (
                 <div className="ticketDetails">
                   <p className="ticketDetails_header text-color-black">Tents Brought from home</p>
                   {foofestTents2 > 0 ? <p className="ticketDetails_text text-color-black">Two person tents: {foofestTents2}</p> : ""}
@@ -146,7 +146,7 @@ export default function Product({ data }) {
                 </>
               ) : (
                 ""
-              )}
+              )} */}
             </div>
             <div className="ticketDetails p-2">
               <p className="ticketDetails_header text-color-black">Extras</p>
