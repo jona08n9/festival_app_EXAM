@@ -101,7 +101,7 @@ export default function Product({ data }) {
       console.log("typeof", typeof ticket[0].contactInformation);
     }
     // const addContactDetails = ticket[0].contactInformation.filter((user) => user.firstName !== ticketHolderFirstName && user.lastName !== ticketHolderLastName);
-    console.log("ACD", addContactDetails);
+    // console.log("ACD", addContactDetails);
     console.log("p2", privateTents3);
   }
 
