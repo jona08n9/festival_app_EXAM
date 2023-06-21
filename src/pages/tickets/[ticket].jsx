@@ -11,6 +11,10 @@ export default function Product({ data }) {
   let ticketHolderFirstName, ticketHolderLastName, ticketType, ticketPhone, ticketEmail, ticketAdress, ticketZip, ticketArea, ticketSpots, addContactDetails, foofestTents2, foofestTents3, privateTents2, privateTents3, greenCamp, setUp;
   // localStorage.removeItem("sb-zwhuiiextumxbglllmlk-auth-token");
 
+  useEffect(() => {
+    localStorage.removeItem("sb-zwhuiiextumxbglllmlk-auth-token");
+  }, []);
+
   // useEffect(() => {
   //   setTicketData([
   //     {
