@@ -274,7 +274,7 @@ export default function LoginComponent() {
         )}
         {renderState === "WRONG_TOKEN" ? (
           <>
-            <article>
+            <article className="bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 mx-auto px-12 py-5 mt-8 rounded">
               <h3 className="text-color-red max-w-lg mx-auto text-center my-7">The code is wrong. Please try again.</h3>
               {secondsCounter === 0 ? <h3 className="text-color-yellow max-w-lg mx-auto text-center my-7">Your timer has run out, the page will reload in 5 seconds. Please try again.</h3> : <h3 className="text-color-white max-w-lg mx-auto text-center my-7">You have {secondsCounter} seconds to input your OTP code</h3>}
               <form className="flex flex-row justify-center max-w-lg mx-auto gap-4" onSubmit={checkValidity}>
