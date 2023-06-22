@@ -23,8 +23,10 @@ export default function Program({ schedule, bands }) {
 
   useEffect(() => {
     const currentLocal = localStorage.getItem("favourites");
+    //Oplevede nogle gang LS ville være "[]". Fjern det hvis det findes
     if (currentLocal == "[]") {
       setFavourites();
+      // Ellers så hent det ned og lav til et array
     } else if (currentLocal !== null) {
       const currentToArray = currentLocal.split(`","`);
       setFavourites(currentToArray);
@@ -33,13 +35,17 @@ export default function Program({ schedule, bands }) {
 
   useEffect(() => {
     const favToString = JSON.stringify(favourites);
+    //Hvis favToString IKKE er undefined, har vi noget værdi som skal op i LS
     if (favToString !== undefined) {
+      //Hvis det er "[]" så væk med det.
       if (favToString === "[]") {
         localStorage.removeItem("favourites");
+        //Hvis det ikke er "[]" må der være andet værdi der skal op i LS --> Lav til subString og smid op.
       } else {
         const editFav = favToString.substring(2, favToString.lastIndexOf(`"]`));
         localStorage.setItem("favourites", editFav);
       }
+      //Hvis favToString er undefined, skal det bare væk.
     } else {
       localStorage.removeItem("favourites");
     }
@@ -66,7 +72,6 @@ export default function Program({ schedule, bands }) {
       sleep(500).then(() => {
         if (e.target.checked === true) {
           setSnackOpen([true, `${e.target.value} has been added to favourites`]);
-          // localStorage.setItem("favourites", JSON.stringify(favourites));
         } else {
           setSnackOpen([true, `${e.target.value} has been removed from favourites`]);
         }
@@ -81,16 +86,23 @@ export default function Program({ schedule, bands }) {
     setSnackOpen([false, ""]);
   }
 
+  // See if the band you just liked is in favourties or naah
   function CheckFavourites(band, i) {
+    // I === true (checked) or false (unChecked) for the like button
     if (i === true) {
+      // If there are no values in favourites
       if (favourites === undefined) {
         setFavourites([`${band}/`]);
+        // If there are values, add the band
       } else {
         setFavourites([...favourites, `${band}/`]);
       }
+      //If the value is false
     } else {
+      //If the length of favourties is 0, just set it to nothing
       if (favourites.length < 1) {
         setFavourites();
+        // else filter out theband from the
       } else {
         const newFavourites = favourites.filter((fav) => fav != `${band}/`);
         setFavourites(newFavourites);
@@ -109,6 +121,7 @@ export default function Program({ schedule, bands }) {
     </>
   );
 
+  // Check if the band is liked from LS
   const localChecked = (band) => {
     if (favourites !== undefined) {
       for (let i = 0; i < favourites.length; i++) {

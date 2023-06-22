@@ -25,13 +25,17 @@ export default function Product({ bandData, scheduleData }) {
   };
 
   useEffect(() => {
+    //Hent local storage ned til currentLocal
     const currentLocal = localStorage.getItem("favourites");
 
+    //Hvis det er null oplever vi nogle gange det bare er "[]", så sørg for det ikke er det og fjern l*rtet
     if (currentLocal !== null) {
       if (currentLocal === "[]") {
         localStorage.removeItem("favourites");
+        //Ellers så træk det ned og sæt det til currentArray.
       } else {
         const currentToArray = currentLocal.substring(0, currentLocal.length - 1).split(`/","`);
+        //Loop igennem og se om bandet (hvis side vi er på) er i arrayet
         for (let i = 0; i < currentToArray.length; i++) {
           if (currentToArray[i] === bandData.name) {
             setFavourites(currentToArray[i]);
@@ -45,58 +49,87 @@ export default function Product({ bandData, scheduleData }) {
   useEffect(() => {
     const currentLocal = localStorage.getItem("favourites");
 
+    //Hvis checked er falsk og currentLocal er null, så er der ingen bands i LS
     if (checked === false && currentLocal === null) {
       console.log("Nothing");
       console.log("1");
+      //Hvis currentLocal IKKE er tom, så må der være mindst én værdi i LS der er hentet ned.
     } else if (currentLocal !== null) {
       console.log("2");
       const currentToArray = currentLocal.substring(0, currentLocal.length - 1).split(`/","`);
+      //Hvis favourites er undefined, men arrayet indeholder bandnavnet, så er det fordi den går fra "liked" true --> false (man tilføjer)
       if (favourites === undefined && currentToArray.includes(bandData.name)) {
         console.log("3");
+        // Hvis arrayet vi har hentet ned kun har én værdi i sig --> Slet det
         if (currentToArray.length < 2) {
           console.log("4");
           localStorage.removeItem("favourites");
+          //Ellers hvis længden er større end én så skal vi filtrere bandet ud.
         } else {
           console.log("5");
+          //Filter
           const filteredList = currentToArray.filter((band) => band !== bandData.name);
+          //Map igennem og tilføj "/"
           const newUpdatedLocal = filteredList.map((band) => band + "/");
+          //Lav ny JSON fil som stringefi'es
           const NULJSON = JSON.stringify(newUpdatedLocal);
+          //Lav en substring
           const NULJSON2 = NULJSON.substring(2, NULJSON.lastIndexOf(`"]`));
+          //Tilføj til LS
           localStorage.setItem("favourites", NULJSON2);
         }
+        //Hvis bandet IKKE er i currentToArray ++ der er bands i favourties --> Så er det "liked" fra false --> true
       } else if (!currentToArray.includes(bandData.name) && favourites !== undefined) {
         console.log("6");
+        // Tilføj bandet til listen med de andre bands
         const updatedLocal = [...currentToArray, favourites];
+        //Map igennem og tilføj "/"
         const newUpdatedLocal = updatedLocal.map((band) => band + "/");
+        //Lav ny JSON fil som stringefi'es
         const NULJSON = JSON.stringify(newUpdatedLocal);
+        //Lav en substring
         const NULJSON2 = NULJSON.substring(2, NULJSON.lastIndexOf(`"]`));
+        //Tilføj til LS
         localStorage.setItem("favourites", NULJSON2);
       }
+      // Hvis der ingen bands er overhoved i listen
     } else if (currentLocal === null) {
       console.log("7");
       console.log("favourites", favourites);
+      // Check hvis der er noget i favourites, så skal vi tilføje bandet til LS, der pt er tomt.
       if (favourites !== undefined) {
         console.log("8");
+        //Tilføj til det nye Array
         const newArray = [favourites];
+        //Map igennem og tilføj "/"
         const newUpdatedLocal = newArray.map((band) => band + "/");
+        //Lav ny JSON fil som stringefi'es
         const NULJSON = JSON.stringify(newUpdatedLocal);
+        //Lav en substring
         const NULJSON2 = NULJSON.substring(2, NULJSON.lastIndexOf(`"]`));
+        //Tilføj til LS
         localStorage.setItem("favourites", NULJSON2);
       }
     }
     console.log("9");
   }, [favourites]);
 
+  //Snackbaren der åbner sig.
   function LocalStorageFavourite() {
+    //Async Promise som tager den feedback det får og arbejder med
     const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    //Hvis snackbaren ellere er åben
     if (snackOpen[0] === true) {
       closeSnack;
+      //Sætter en "time out", så der ikke åbnes to på én gang.
       sleep(500).then(() => {
+        //Hvis favourites er tom (så er bandet ikke på listen og det bliver tilføjet)
         if (favourites === undefined) {
           console.log("1) Nej, vi er her");
           setSnackOpen([true, `${bandData.name} has been added to favourites`]);
           setFavourites(bandData.name);
           setChecked(true);
+          //Hvis favourites er ikke er tom (så er bandet  på listen og det skal fjernes)
         } else {
           console.log("2) vi er her");
           setSnackOpen([true, `${bandData.name} has been removed from favourites`]);
@@ -104,13 +137,15 @@ export default function Product({ bandData, scheduleData }) {
           setChecked(false);
         }
       });
+      // hvis der ikke er en snackbar åben er det fint.
     } else if (snackOpen[0] === false) {
-      // favourites.length === bandData.name.length ||
+      //Hvis favourites er tom (så er bandet ikke på listen og det bliver tilføjet)
       if (favourites === undefined) {
         console.log("3) Hallo, vi er her");
         setSnackOpen([true, `${bandData.name} has been added to favourites`]);
         setFavourites(bandData.name);
         setChecked(true);
+        //Hvis favourites er ikke er tom (så er bandet  på listen og det skal fjernes)
       } else {
         console.log("4) Nej, nej nej, vi er her");
         setSnackOpen([true, `${bandData.name} has been removed from favourites`]);
@@ -127,18 +162,11 @@ export default function Product({ bandData, scheduleData }) {
   const action = (
     <>
       <Anchor href="../personalprogram">
-        <Button
-          color="success"
-          size="small"
-        >
+        <Button color="success" size="small">
           See Personal Program
         </Button>
       </Anchor>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-      >
+      <IconButton size="small" aria-label="close" color="inherit">
         <CloseIcon fontSize="small" />
       </IconButton>
     </>
@@ -234,10 +262,7 @@ export default function Product({ bandData, scheduleData }) {
           Band name
         </button> */}
         <div className="relative aspect-video object-contain grid ">
-          <Button
-            onClick={() => goBack()}
-            className="absolute left-1 top-1 z-40"
-          >
+          <Button onClick={() => goBack()} className="absolute left-1 top-1 z-40">
             <ArrowLeft className="fill-color-yellow w-10" />
           </Button>
           {matchingAct.cancelled !== true ? (
@@ -262,33 +287,12 @@ export default function Product({ bandData, scheduleData }) {
           {matchingAct.cancelled === true ? (
             <div className="grid items-center justify-items-center ">
               <h2 className="w-full uppercase text-center bg-color-red z-40 grid col-start-1 row-start-1 text-color-blue">Cancelled</h2>
-              <Image
-                width={100}
-                height={100}
-                src={logoUrl}
-                alt={bandData.bio}
-                quality={80}
-                className="z-10 filter grayscale object-contain w-full col-start-1 row-start-1 aspect-video pointer-events-none"
-              />
+              <Image width={100} height={100} src={logoUrl} alt={bandData.bio} quality={80} className="z-10 filter grayscale object-contain w-full col-start-1 row-start-1 aspect-video pointer-events-none" />
             </div>
           ) : (
-            <Image
-              width={100}
-              height={100}
-              src={logoUrl}
-              alt={bandData.bio}
-              quality={80}
-              className="w-full aspect-video object-contain z-10 pointer-events-none"
-            />
+            <Image width={100} height={100} src={logoUrl} alt={bandData.bio} quality={80} className="w-full aspect-video object-contain z-10 pointer-events-none" />
           )}
-          <Image
-            width={100}
-            height={100}
-            src={logoUrl}
-            alt={bandData.bio}
-            quality={80}
-            className="absolute z-0 grid-row-1 w-full aspect-video object-fill blur-sm pointer-events-none"
-          />
+          <Image width={100} height={100} src={logoUrl} alt={bandData.bio} quality={80} className="absolute z-0 grid-row-1 w-full aspect-video object-fill blur-sm pointer-events-none" />
         </div>
         <div className="max-w-2xl mx-auto px-1 sm:px-0">
           <h3 className="text-4xl uppercase pt-2 pb-3 ">{bandData.name}</h3>
@@ -314,14 +318,7 @@ export default function Product({ bandData, scheduleData }) {
           </div>
         </div>
       </div>
-      <Snackbar
-        open={snackOpen[0]}
-        autoHideDuration={4000}
-        onClose={closeSnack}
-        message={snackOpen[1]}
-        action={action}
-      />
-      ;
+      <Snackbar open={snackOpen[0]} autoHideDuration={4000} onClose={closeSnack} message={snackOpen[1]} action={action} />;
     </>
   );
 }

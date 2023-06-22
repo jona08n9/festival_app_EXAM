@@ -28,9 +28,11 @@ export default function PersonalProgram({ schedule, bands }) {
     console.log(band);
     setDialogOpen([true, band]);
   };
+  //If you keep the band
   const handleDialogKeep = () => {
     setDialogOpen([false, ""]);
   };
+  //If you remove the band
   const handleDialogRemove = () => {
     removeBand(dialogOpen[1])
     setDialogOpen([false, ""]);
@@ -40,10 +42,11 @@ export default function PersonalProgram({ schedule, bands }) {
   // Make a new state with the favourites (that has all the info), so we can loop through them in the schedule
   useEffect(() => {
     const currentLocal = localStorage.getItem("favourites");
-
     if (currentLocal !== null) {
+      //Oplevede nogle gang LS ville være "[]". Fjern det hvis det findes
       if (currentLocal === "[]") {
         localStorage.removeItem("favourites");
+        // Ellers så hent det ned og lav til et array
       } else {
 
         const currentToArray = currentLocal.substring(0, currentLocal.length - 1).split(`/","`);
