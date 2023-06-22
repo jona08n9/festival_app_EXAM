@@ -14,9 +14,6 @@ export default function LoginComponent() {
   const [userToken, setUserToken] = useState("");
   const [secondsCounter, setSecondsCounter] = useState(null);
   const router = useRouter();
-  const inputRefs = useRef([]);
-  const MAX_INPUTS = 6;
-  const SUPABASE_KEY = process.env.SUPABASE_KEY;
 
   const supabase = createClient("https://zwhuiiextumxbglllmlk.supabase.co/", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3aHVpaWV4dHVteGJnbGxsbWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY3NDQzMjEsImV4cCI6MjAwMjMyMDMyMX0.6bVHqcHAjW1yayID2eKPB5jiFxbx4Pk5bQ2Dvb-PXLo");
 
@@ -133,11 +130,11 @@ export default function LoginComponent() {
 
   return (
     <>
-      <section className="mt-12 flex flex-col justify-center">
+      <section className="mt-12 flex flex-col justify-center ">
         <h3 className="text-center max-w-2xl mx-auto">If you've bought a ticket for FooFest, you'll recieve a One Time Password to login and see your booking information.</h3>
         {renderState === "INITIAL_STATE" ? (
-          <article>
-            <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">Input your phone number</h4>
+          <article className="bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 mx-auto px-12 py-5 mt-8 rounded">
+            <h3 className="text-color-white max-w-lg mx-auto text-center my-7">Input your phone number</h3>
             <form className="flex flex-col justify-center" onSubmit={checkValidity}>
               <TextField
                 inputProps={{ inputMode: "tel" }}
@@ -180,8 +177,8 @@ export default function LoginComponent() {
         )}
         {renderState === "WRONG_PHONENUMBER" ? (
           <>
-            <article>
-              <h4 className="text-color-red max-w-md mx-auto text-center my-7">ERROR! The you've send was not in our database. Please try again with the correct number</h4>
+            <article className="bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 mx-auto px-12 py-5 mt-8 rounded">
+              <h3 className="text-color-red max-w-md mx-auto text-center my-7">ERROR! The number you've put in is not in our database. Please try again with the correct number</h3>
               <form className="flex flex-col justify-center" onSubmit={checkValidity}>
                 <TextField
                   inputProps={{ inputMode: "tel" }}
@@ -225,9 +222,9 @@ export default function LoginComponent() {
         )}
         {renderState === "CORRECT_PHONENUMBER" ? (
           <>
-            <article>
-              <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">{`We've send you a six digit code to the phone number +45 ${userNumber.substring(0, 4)} - ${userNumber.substring(4, 8)}. Please fill them in below to log in.`}</h4>
-              {secondsCounter === 0 ? <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">Your timer has run out, the page will reload in 5 seconds. Please try again.</h4> : <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">You have {secondsCounter} seconds to input your OTP code</h4>}
+            <article className="bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 mx-auto px-12 py-5 mt-8 rounded">
+              <h3 className="text-color-white max-w-lg mx-auto text-center my-7">{`We've send you a six digit code to the phone number (+45 ${userNumber.substring(0, 4)} - ${userNumber.substring(4, 8)}). Please insert the code below to log in.`}</h3>
+              {secondsCounter === 0 ? <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">Your timer has run out, the page will reload in 5 seconds. Please try again.</h4> : <h4 className="text-color-white max-w-lg mx-auto text-center my-7">You have {secondsCounter} seconds to input your OTP code</h4>}
               <form className="flex flex-row justify-center max-w-lg mx-auto gap-4" onSubmit={checkValidity}>
                 <TextField
                   inputProps={{ inputMode: "tel", maxLength: 6 }}
@@ -267,8 +264,8 @@ export default function LoginComponent() {
         )}
         {renderState === "FETCHING_TOKEN_ID" ? (
           <>
-            <article className="flex flex-col mx-auto gap-3 justify-center">
-              <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">Running verification, please wait</h4>
+            <article className="flex flex-col mx-auto gap-3 justify-center bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 px-12 py-5 mt-8 rounded">
+              <h3 className="text-color-white max-w-lg mx-auto text-center my-7">Running verification, please wait</h3>
               <CircularProgress sx={{ color: "yellow" }} className="mx-auto" />
             </article>
           </>
@@ -278,8 +275,8 @@ export default function LoginComponent() {
         {renderState === "WRONG_TOKEN" ? (
           <>
             <article>
-              <h4 className="text-color-red max-w-lg mx-auto text-center my-7">The code is wring. Please try again.</h4>
-              {secondsCounter === 0 ? <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">Your timer has run out, the page will reload in 5 seconds. Please try again.</h4> : <h4 className="text-color-yellow max-w-lg mx-auto text-center my-7">You have {secondsCounter} seconds to input your OTP code</h4>}
+              <h3 className="text-color-red max-w-lg mx-auto text-center my-7">The code is wrong. Please try again.</h3>
+              {secondsCounter === 0 ? <h3 className="text-color-yellow max-w-lg mx-auto text-center my-7">Your timer has run out, the page will reload in 5 seconds. Please try again.</h3> : <h3 className="text-color-white max-w-lg mx-auto text-center my-7">You have {secondsCounter} seconds to input your OTP code</h3>}
               <form className="flex flex-row justify-center max-w-lg mx-auto gap-4" onSubmit={checkValidity}>
                 <TextField
                   inputProps={{ inputMode: "tel", maxLength: 6 }}
